@@ -18,7 +18,7 @@ src/
   content/posts/<slug>/        — index.md and its images
   pages/                       — routes: skeleton and composition only; per-page styles in _<page>.module.css
   layouts/                     — Base (document, header, footer), Post (post page), Page (Markdown pages such as pages/about.md)
-  components/                  — site-wide components (SiteHeader, SiteFooter)
+  components/                  — site-wide components (SiteHeader, SiteFooter, PageHeader)
   features/posts/
     data/posts.ts              — the only reader of the posts collection; called from frontmatter and endpoints
     components/                — post display (Timeline, PostMeta, TagList, Prose)

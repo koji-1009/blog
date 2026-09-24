@@ -1,0 +1,19 @@
+---
+import styles from './PageHeader.module.css';
+
+// Header of an article page: the title and the description as a subtitle.
+// The `meta` slot goes above the title (post date); the default slot goes below the description (tags).
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<header class={styles.header}>
+  <slot name="meta" />
+  <h1 class={styles.title}>{title}</h1>
+  <p class={styles.lede}>{description}</p>
+  <slot />
+</header>

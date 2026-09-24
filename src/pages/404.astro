@@ -3,7 +3,7 @@ import Base from '../layouts/Base.astro';
 import styles from './_404.module.css';
 ---
 
-<Base title="Page not found">
+<Base title="Page not found" canonical={false}>
   <p class={styles.code}>404</p>
   <h1 class={styles.heading}>Page not found</h1>
   <p><a href="/">← All posts</a></p>

@@ -2,7 +2,7 @@
 title: Before-and-After Images for Flutter UI Changes, Without Launching the App
 description: Shutter renders your @Preview widgets to PNG and diffs them, so you and your coding agent can see what a change did.
 pubDate: 2026-09-23
-tags: [flutter, testing]
+tags: [flutter, cli, testing, coding-agents]
 ---
 
 *This post describes shutter v0.2.0.*

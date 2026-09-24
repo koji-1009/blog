@@ -2,7 +2,7 @@
 title: 'Beyond Infinite Scroll: A Data-Driven Approach to Flutter Pagination'
 description: Why I built paging_view to bring the robustness of Android’s Paging 3 architecture to Flutter.
 pubDate: 2025-12-25
-tags: [flutter, flutter-widget, pagination]
+tags: [flutter, pagination, slivers]
 ---
 
 If you develop mobile apps, you inevitably face the requirement of implementing “infinite scroll.” By my estimation, it pops up about 1.5 times per app.

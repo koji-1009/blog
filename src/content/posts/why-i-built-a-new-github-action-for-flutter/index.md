@@ -2,7 +2,7 @@
 title: Why I Built a New GitHub Action for Flutter
 description: setup-flutter is a GitHub Action for Flutter written entirely in TypeScript, with version files, SHA-256 verification and caching built in.
 pubDate: 2026-04-13
-tags: [flutter, github-actions]
+tags: [flutter, github-actions, ci, typescript]
 ---
 
 Setting up Flutter in GitHub Actions should be straightforward. Clone the SDK, add it to `PATH`, and you're ready. But in practice, the details — caching, version resolution, cross-platform support, download verification — add up quickly. After dealing with these challenges across multiple projects, I built [setup-flutter](https://github.com/koji-1009/setup-flutter), a GitHub Action written entirely in TypeScript.
