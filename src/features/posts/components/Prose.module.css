@@ -81,6 +81,16 @@
   border-radius: var(--radius-m);
 }
 
+/* A paragraph of only italic text right after an image is its caption. */
+.prose > p:has(> img) + p:has(> em:only-child) {
+  margin-block-start: var(--space-s);
+  color: var(--color-foreground-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}
+
+.prose > p:has(> img) + p:has(> em:only-child) + * { margin-block-start: var(--space-l); }
+
 /* ---- Quotes ---- */
 
 .prose blockquote {
