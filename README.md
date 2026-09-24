@@ -1,6 +1,6 @@
 # blog
 
-Source of [en.koji-1009.com](https://en.koji-1009.com), an English blog about Flutter and Dart tools. Built with [Astro](https://astro.build) as a fully static site and served by Cloudflare Workers static assets.
+Source of [blog.koji-1009.com](https://blog.koji-1009.com), an English blog about Flutter and Dart tools. Built with [Astro](https://astro.build) as a fully static site and served by Cloudflare Workers static assets.
 
 ## Adding a post
 
@@ -45,7 +45,7 @@ The site deploys with Workers Builds (Cloudflare's Git integration). One-time se
    - Deploy command: `pnpm wrangler deploy`
    - Production branch: `main`
 3. Under **Settings** → **Build** → **Build Variables and Secrets**, add `PNPM_VERSION` with the same version as `packageManager` in `package.json` (currently `12.6.0`). The Workers Builds image defaults to an older pnpm, and its documentation does not say that it reads `packageManager`. Update this variable whenever `packageManager` changes.
-4. Under **Settings** → **Domains & Routes** → **Add** → **Custom Domain**, enter `en.koji-1009.com` and select **Add Custom Domain**. The `koji-1009.com` zone must be one you own in Cloudflare, and `en.koji-1009.com` must not already have a CNAME record.
+4. Under **Settings** → **Domains & Routes** → **Add** → **Custom Domain**, enter `blog.koji-1009.com` and select **Add Custom Domain**. The `koji-1009.com` zone must be one you own in Cloudflare, and `blog.koji-1009.com` must not already have a CNAME record.
 
 After that, every push to `main` builds and deploys the site. The Worker name (`blog`) and asset settings are in `wrangler.jsonc`. The site URL is set only in `astro.config.mjs` (`site`).
 

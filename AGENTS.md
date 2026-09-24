@@ -4,7 +4,7 @@ Instructions for coding agents working in this repository. Human-facing setup is
 
 ## Project
 
-- English technical blog at `https://en.koji-1009.com`, moved from Medium.
+- English technical blog at `https://blog.koji-1009.com`, moved from Medium.
 - Astro, fully static output, no adapter. Served by Cloudflare Workers static assets (`wrangler.jsonc`) through Workers Builds.
 - Look up Astro APIs in the official documentation (https://docs.astro.build) before using them; do not write them from memory. Astro 7 renders Markdown with Sätteri, not remark/rehype.
 
