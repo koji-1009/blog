@@ -1,0 +1,15 @@
+---
+import styles from './SiteFooter.module.css';
+import { GITHUB_URL, JAPANESE_BLOG_URL, X_URL, ZENN_URL } from '../shared/lib/site';
+---
+
+<div class={styles.footer}>
+  <p>© Koji Wakamiya. Code samples: MIT</p>
+  <ul class={styles.links}>
+    <li><a href={GITHUB_URL}>GitHub</a></li>
+    <li><a href={X_URL}>X (@D_R_1009)</a></li>
+    <li><a href={ZENN_URL} hreflang="ja">Zenn</a></li>
+    <li><a href="/rss.xml">RSS</a></li>
+    <li><a href={JAPANESE_BLOG_URL} hreflang="ja">Japanese blog</a></li>
+  </ul>
+</div>

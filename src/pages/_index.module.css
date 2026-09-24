@@ -1,0 +1,26 @@
+.intro {
+  margin-block-end: var(--space-2xl);
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--text-lead);
+  font-weight: 600;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+.byline {
+  margin: var(--space-m) 0 0;
+  color: var(--color-foreground-muted);
+}
+
+.heading {
+  margin: 0 0 var(--space-l);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-foreground-muted);
+}

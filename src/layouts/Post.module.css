@@ -1,0 +1,25 @@
+.header {
+  margin-block-end: var(--space-xl);
+  padding-block-end: var(--space-xl);
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.title {
+  margin: var(--space-s) 0 var(--space-m);
+}
+
+/* The description doubles as a subtitle, as on Medium where these posts come from. */
+.lede {
+  margin: 0;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--color-foreground-muted);
+}
+
+.back {
+  margin-block: var(--space-2xl) 0;
+  font-weight: 600;
+}
+
+.back a { text-decoration: none; }
+.back a:hover { text-decoration: underline; }

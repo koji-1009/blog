@@ -1,0 +1,20 @@
+.header {
+  margin-block-end: var(--space-xl);
+}
+
+.eyebrow,
+.count {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-foreground-muted);
+}
+
+.eyebrow {
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.heading {
+  margin: var(--space-xs) 0;
+}

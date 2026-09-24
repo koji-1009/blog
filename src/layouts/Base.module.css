@@ -1,0 +1,10 @@
+/* The page column: --measure wide plus --gutter on each side, centred. */
+.frame {
+  max-width: calc(var(--measure) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.main {
+  margin-block: var(--space-xl) var(--space-2xl);
+}

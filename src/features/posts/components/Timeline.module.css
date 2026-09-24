@@ -1,0 +1,93 @@
+/*
+ * Posts joined by one vertical rail, like `git log --graph`.
+ * Each year is a label on the rail (like a git tag) and each post is a node.
+ * --rail-x: distance from the left edge of the column to the centre of the rail.
+ */
+.timeline {
+  --node: 0.75rem;
+  --rail-x: calc(var(--node) / 2 + 3px);
+  --text-x: calc(var(--rail-x) + var(--space-l));
+  position: relative;
+}
+
+/* The rail runs through every year without a break. */
+.timeline::before {
+  content: "";
+  position: absolute;
+  inset-block: var(--space-m) 0;
+  inset-inline-start: calc(var(--rail-x) - 1px);
+  border-inline-start: 2px solid var(--color-rail);
+}
+
+.year + .year { margin-block-start: var(--space-xl); }
+
+/* The label covers the rail, so the rail appears to pass behind it. */
+.yearLabel {
+  position: relative;
+  display: inline-block;
+  margin: 0 0 var(--space-l);
+  padding: var(--space-xs) var(--space-m);
+  border-radius: 999px;
+  background-color: var(--color-tint);
+  color: var(--color-foreground-muted);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.posts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post {
+  position: relative;
+  padding-inline-start: var(--text-x);
+}
+
+.post + .post { margin-block-start: var(--space-xl); }
+
+/* Node: centred on the rail and on the date line. A ring in the surface colour separates it from the rail. */
+.post::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: calc(var(--rail-x) - var(--node) / 2);
+  inset-block-start: calc(var(--text-sm) * var(--leading-body) / 2 - var(--node) / 2);
+  width: var(--node);
+  height: var(--node);
+  border-radius: 50%;
+  background-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-surface);
+}
+
+.post:has(a:hover, a:focus-visible)::before {
+  box-shadow: 0 0 0 3px var(--color-surface), 0 0 0 5px var(--color-accent);
+}
+
+.date {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-foreground-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  margin: var(--space-xs) 0 var(--space-s);
+  font-size: var(--text-lg);
+  line-height: var(--leading-tight);
+}
+
+.title a {
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+
+.title a:hover { color: var(--color-accent); }
+
+.description {
+  margin: 0;
+  color: var(--color-foreground-muted);
+  font-size: 1rem;
+}

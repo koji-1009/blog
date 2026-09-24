@@ -1,0 +1,10 @@
+.code {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  color: var(--color-foreground-muted);
+}
+
+.heading {
+  margin: var(--space-xs) 0 var(--space-l);
+}

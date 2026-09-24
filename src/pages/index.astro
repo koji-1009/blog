@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Timeline from '../features/posts/components/Timeline.astro';
+import styles from './_index.module.css';
+import { getPosts } from '../features/posts/data/posts';
+import { GITHUB_URL, SITE_DESCRIPTION } from '../shared/lib/site';
+
+const posts = await getPosts();
+---
+
+<Base>
+  <section class={styles.intro}>
+    <p class={styles.lead}>{SITE_DESCRIPTION}</p>
+    <p class={styles.byline}>
+      <a href={GITHUB_URL}>koji-1009</a> on GitHub · Flutter contributor · <a href="/about/">About me</a>
+    </p>
+  </section>
+  <section aria-labelledby="posts">
+    <h1 id="posts" class={styles.heading}>Posts</h1>
+    <Timeline posts={posts} />
+  </section>
+</Base>

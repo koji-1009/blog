@@ -1,0 +1,57 @@
+/* Design tokens. The reasons for each value are in docs/design.md. */
+
+:root {
+  --color-surface: #ffffff;
+  --color-foreground: #1c2128;
+  --color-foreground-muted: #59626e;
+  --color-accent: #0b62c4;
+  --color-accent-soft: #eef3fb;
+  --color-tint: #f3f5f7;
+  --color-rule: #e4e7eb;
+  --color-rail: #cfd5dd;
+  --color-code-surface: #0d1117;
+  --color-code-border: transparent;
+
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, "Cascadia Code", Consolas, "Liberation Mono", monospace;
+
+  --text-xs: 0.8125rem;  /* 13px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-code: 0.9375rem; /* 15px */
+  --text-base: 1.125rem; /* 18px */
+  --text-lg: 1.25rem;    /* 20px */
+  --text-h3: 1.25rem;
+  --text-h2: 1.5rem;
+  --text-h1: clamp(2rem, 1.4rem + 2.4vw, 2.75rem);
+  --text-lead: clamp(1.375rem, 1.1rem + 1.2vw, 1.75rem);
+
+  --leading-body: 1.7;
+  --leading-tight: 1.25;
+
+  --space-xs: 0.25rem;
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+
+  --radius-s: 4px;
+  --radius-m: 8px;
+
+  --measure: 42rem;
+  --gutter: 1.25rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-surface: #111318;
+    --color-foreground: #e6e8eb;
+    --color-foreground-muted: #9aa3ae;
+    --color-accent: #79b0ff;
+    --color-accent-soft: #1a2433;
+    --color-tint: #1d2129;
+    --color-rule: #272b33;
+    --color-rail: #3a414b;
+    --color-code-border: #272b33;
+  }
+}

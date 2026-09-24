@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import Timeline from '../../features/posts/components/Timeline.astro';
+import styles from './_tag.module.css';
+import { getPosts, type Post } from '../../features/posts/data/posts';
+
+export async function getStaticPaths() {
+  const posts = await getPosts();
+  const tags = new Set(posts.flatMap((post) => post.data.tags));
+  return [...tags].map((tag) => ({
+    params: { tag },
+    props: { tag, posts: posts.filter((post) => post.data.tags.includes(tag)) },
+  }));
+}
+
+interface Props {
+  tag: string;
+  posts: Post[];
+}
+
+const { tag, posts } = Astro.props;
+---
+
+<Base title={`Tagged ${tag}`} description={`Posts tagged ${tag}.`}>
+  <header class={styles.header}>
+    <p class={styles.eyebrow}>Tag</p>
+    <h1 class={styles.heading}>#{tag}</h1>
+    <p class={styles.count}>{posts.length} {posts.length === 1 ? 'post' : 'posts'}</p>
+  </header>
+  <Timeline posts={posts} />
+</Base>

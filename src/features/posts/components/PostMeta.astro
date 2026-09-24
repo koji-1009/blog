@@ -1,0 +1,16 @@
+---
+import styles from './PostMeta.module.css';
+import { formatDate, isoDate } from '../../../shared/lib/dates';
+
+interface Props {
+  pubDate: Date;
+  updatedDate?: Date;
+}
+
+const { pubDate, updatedDate } = Astro.props;
+---
+
+<p class={styles.meta}>
+  <time datetime={isoDate(pubDate)}>{formatDate(pubDate)}</time>
+  {updatedDate && <span class={styles.updated}>Updated <time datetime={isoDate(updatedDate)}>{formatDate(updatedDate)}</time></span>}
+</p>

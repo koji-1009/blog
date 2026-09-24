@@ -1,0 +1,57 @@
+---
+import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import '../styles/global.css';
+import styles from './Base.module.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { SITE_DESCRIPTION, SITE_TITLE } from '../shared/lib/site';
+
+interface Props {
+  /** Page title without the site name. Omit on the home page. */
+  title?: string;
+  description?: string;
+  /** OGP image. Falls back to the site-wide default image. */
+  image?: ImageMetadata;
+  ogType?: 'website' | 'article';
+}
+
+const { title, description = SITE_DESCRIPTION, image, ogType = 'website' } = Astro.props;
+
+const pageTitle = title ? `${title} – ${SITE_TITLE}` : SITE_TITLE;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const imagePath = image ? (await getImage({ src: image, width: 1200, format: 'png' })).src : '/og.png';
+const imageUrl = new URL(imagePath, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title={SITE_TITLE} href={new URL('rss.xml', Astro.site)} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_TITLE} />
+    <meta property="og:title" content={title ?? SITE_TITLE} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <header class={styles.frame}>
+      <SiteHeader />
+    </header>
+    <main class:list={[styles.frame, styles.main]}>
+      <slot />
+    </main>
+    <footer class={styles.frame}>
+      <SiteFooter />
+    </footer>
+  </body>
+</html>

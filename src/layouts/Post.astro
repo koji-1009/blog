@@ -1,0 +1,30 @@
+---
+import Base from './Base.astro';
+import styles from './Post.module.css';
+import PostMeta from '../features/posts/components/PostMeta.astro';
+import TagList from '../features/posts/components/TagList.astro';
+import Prose from '../features/posts/components/Prose.astro';
+import type { Post } from '../features/posts/data/posts';
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { title, description, pubDate, updatedDate, tags, heroImage } = post.data;
+---
+
+<Base title={title} description={description} image={heroImage} ogType="article">
+  <article>
+    <header class={styles.header}>
+      <PostMeta pubDate={pubDate} updatedDate={updatedDate} />
+      <h1 class={styles.title}>{title}</h1>
+      <p class={styles.lede}>{description}</p>
+      <TagList tags={tags} />
+    </header>
+    <Prose>
+      <slot />
+    </Prose>
+  </article>
+  <p class={styles.back}><a href="/">← All posts</a></p>
+</Base>

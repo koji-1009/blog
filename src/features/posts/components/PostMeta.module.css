@@ -1,0 +1,11 @@
+.meta {
+  margin: 0;
+  font-size: var(--text-sm);
+  color: var(--color-foreground-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.updated::before {
+  content: "·";
+  margin-inline: var(--space-s);
+}
