@@ -5,6 +5,8 @@ pubDate: 2025-12-25
 tags: [flutter, pagination, slivers]
 ---
 
+import LinkCard from '../../../features/posts/components/LinkCard.astro';
+
 If you develop mobile apps, you inevitably face the requirement of implementing “infinite scroll.” By my estimation, it pops up about 1.5 times per app.
 
 While it sounds like a common feature, implementing a robust infinite scroll is deceptively difficult. Relying solely on basic widgets often leads to implementations that feel “off” or fragile. Edge cases abound, and debugging scroll behaviors can be a time sink.
@@ -47,7 +49,7 @@ In Flutter, we rely on `SliverList` (or `ListView`) to recycle the Views (Widget
 
 I created **paging_view** because I wanted the architectural cleanliness of Android Paging 3 in Flutter. Existing packages often mixed UI logic with data fetching logic, or didn’t support complex `Sliver` layouts natively.
 
-<https://pub.dev/packages/paging_view>
+<LinkCard url="https://pub.dev/packages/paging_view" />
 
 ### 1. Separation of Concerns with DataSource
 
@@ -121,6 +123,8 @@ While there are many pagination packages out there, **paging_view** focuses on *
 
 If you are looking for a library that respects the `DataSource` pattern and plays perfectly with Slivers, give it a try.
 
-- **Package:** <https://pub.dev/packages/paging_view>
-- **Demo:** [https://koji-1009.github.io/paging_view](https://koji-1009.github.io/paging_view/)
-- **Repository:** <https://github.com/koji-1009/paging_view>
+<LinkCard url="https://pub.dev/packages/paging_view" />
+
+<LinkCard url="https://github.com/koji-1009/paging_view" />
+
+**Demo:** [https://koji-1009.github.io/paging_view](https://koji-1009.github.io/paging_view/)
