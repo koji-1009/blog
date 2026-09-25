@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import styles from './Post.module.css';
+import PageHeader from '../components/PageHeader.astro';
 import PostMeta from '../features/posts/components/PostMeta.astro';
 import TagList from '../features/posts/components/TagList.astro';
 import Prose from '../features/posts/components/Prose.astro';
@@ -14,14 +15,12 @@ const { post } = Astro.props;
 const { title, description, pubDate, updatedDate, tags, heroImage } = post.data;
 ---
 
-<Base title={title} description={description} image={heroImage} ogType="article">
+<Base title={title} description={description} image={heroImage} article={{ pubDate, updatedDate, tags }}>
   <article>
-    <header class={styles.header}>
-      <PostMeta pubDate={pubDate} updatedDate={updatedDate} />
-      <h1 class={styles.title}>{title}</h1>
-      <p class={styles.lede}>{description}</p>
+    <PageHeader title={title} description={description}>
+      <PostMeta slot="meta" pubDate={pubDate} updatedDate={updatedDate} />
       <TagList tags={tags} />
-    </header>
+    </PageHeader>
     <Prose>
       <slot />
     </Prose>

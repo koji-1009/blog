@@ -8,6 +8,9 @@
   margin: 0 0 var(--space-m);
 }
 
+.header > * + .title { margin-block-start: var(--space-s); }
+
+/* The description doubles as a subtitle, as on Medium where the posts come from. */
 .lede {
   margin: 0;
   font-size: var(--text-lg);

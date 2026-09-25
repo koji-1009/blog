@@ -1,0 +1,80 @@
+---
+title: Why I Built a New GitHub Action for Flutter
+description: setup-flutter is a GitHub Action for Flutter written entirely in TypeScript, with version files, SHA-256 verification and caching built in.
+pubDate: 2026-04-13
+tags: [flutter, github-actions, ci, typescript]
+---
+
+Setting up Flutter in GitHub Actions should be straightforward. Clone the SDK, add it to `PATH`, and you're ready. But in practice, the details — caching, version resolution, cross-platform support, download verification — add up quickly. After dealing with these challenges across multiple projects, I built [setup-flutter](https://github.com/koji-1009/setup-flutter), a GitHub Action written entirely in TypeScript.
+
+## Motivation
+
+The starting point was shell scripts. Flutter setup actions typically rely on bash and PowerShell to handle downloading, extracting, and configuring the SDK. This works, but shell scripts are heavily influenced by their execution environment — quoting rules, path separators, available commands all differ between platforms. Every cross-platform edge case becomes its own debugging session, and writing reliable tests for shell scripts is painful.
+
+TypeScript seemed like the obvious alternative. GitHub Actions natively supports Node.js runtimes, the `@actions/*` packages handle caching and tool management, and you get a single codebase that behaves identically on Linux, macOS, and Windows. The entire action runs on the `node24` runtime with no shell scripts and no `uses:` references to other actions.
+
+I also wanted the project to sustain itself. I don’t always have time to review PRs and cut releases, so Dependabot handles dependency updates, auto-merge covers patch and minor bumps, and the CI pipeline gates everything. If I disappear for a few weeks, the action doesn’t fall behind.
+
+## How It Works
+
+Zero configuration installs the latest stable Flutter with caching enabled:
+
+```yaml
+steps:
+  - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+  - uses: koji-1009/setup-flutter@f3f6da93828bdc04c16df16e88984a1bd8f3ce81 # v1.1.3
+  - run: flutter test
+```
+
+## Version Specification
+
+Supports exact versions (`3.41.0`), ranges (`3.x`), and semver constraints (`>=3.41.0 <4.0.0`):
+
+```yaml
+- uses: koji-1009/setup-flutter@f3f6da93828bdc04c16df16e88984a1bd8f3ce81 # v1.1.3
+  with:
+    flutter-version: '>=3.41.0 <4.0.0'
+```
+
+You can also read the version from files in your repository — `pubspec.yaml`, `pubspec.yml`, or `.fvmrc`.
+
+For teams using [FVM](https://fvm.app/), `.fvmrc` support is particularly valuable. FVM is a widely-adopted version manager in the Flutter community, and many teams already have `.fvmrc` in their repositories to pin the Flutter version for local development. By reading the same file in CI, setup-flutter makes `.fvmrc` the single source of truth — there's no second place to update when you change Flutter versions.
+
+```yaml
+# .fvmrc
+# {
+#   "flutter": "3.41.0",
+# }
+
+- uses: koji-1009/setup-flutter@f3f6da93828bdc04c16df16e88984a1bd8f3ce81 # v1.1.3
+  with:
+    flutter-version-file: .fvmrc
+```
+
+## SHA-256 Verification
+
+Every download is verified in a single streaming pass — the archive is hashed while it’s being written to disk, not in a separate step afterward. If the hash doesn’t match what Flutter’s release manifest declares, the action fails immediately and cleans up the corrupted file. No configuration needed.
+
+This already caught a real bug — [flutter/flutter#183217](https://github.com/flutter/flutter/issues/183217), a **P0** where the release manifest checksums didn’t match the actual 3.41.3 archives on macOS and Windows.
+
+## Caching
+
+Caching is enabled by default with two independent caches:
+
+- **SDK cache** — keyed on `os + channel + version + architecture`. A full SDK restore skips the download entirely.
+- **Pub cache** — keyed on `os + SHA-256(pubspec.lock)`. This key intentionally does *not* include the Flutter version. The `.pub-cache` directory contains Dart source code, so upgrading Flutter without changing `pubspec.lock` doesn't invalidate the cache.
+
+Both can be disabled independently via `cache-sdk` and `cache-pub` inputs. Failed downloads are retried up to 3 times with exponential backoff, and both HTTP and git operations have idle timeouts to prevent stalled connections from hanging your workflow.
+
+## Other Features
+
+- **Git source** — install from a git repository instead of release archives. Useful for the `master` channel or custom Flutter forks.
+- **Dry run** — resolve a version without installing. Useful for CI scripts that need the resolved version before proceeding.
+- **China mirror** — set `FLUTTER_STORAGE_BASE_URL` to use an alternative download mirror.
+- **Architecture** — auto-detected, or explicitly set to `x64` or `arm64`.
+
+See the [README](https://github.com/koji-1009/setup-flutter) for full usage examples.
+
+setup-flutter is [MIT-licensed](https://github.com/koji-1009/setup-flutter/blob/main/LICENSE). Issues and contributions are welcome.
+
+<https://github.com/koji-1009/setup-flutter>

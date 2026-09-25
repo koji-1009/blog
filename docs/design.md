@@ -54,7 +54,7 @@ The node (an accent-coloured circle with a soft ring) is the site's mark. It app
 | Token | Size | Use |
 | --- | --- | --- |
 | `--text-xs` | 13px | Code language label |
-| `--text-sm` | 14px | Dates, navigation, footer, tags, year labels |
+| `--text-sm` | 14px | Dates, navigation, footer, tags, year labels, image captions |
 | `--text-code` | 15px | Code blocks |
 | `--text-base` | 18px | Body text |
 | `--text-lg` | 20px | Post titles in the list, post description |
@@ -111,6 +111,7 @@ The node (an accent-coloured circle with a soft ring) is the site's mark. It app
 - Inline code: `--color-tint` background, 4px radius.
 - Code blocks: dark surface, 8px radius, 16px × 24px padding, 15px text with 1.6 leading. The language (from Shiki's `data-language`) is shown above the code as a small uppercase label, drawn with CSS only.
 - Images: centred, 1px `--color-rule` border (so white screenshots do not merge into the page) and 8px radius.
+- Image captions: a paragraph of only italic text (`*…*`) right after an image is its caption, 14px muted and centred, 8px below the image. Markdown has no caption syntax, and this keeps the image going through Astro's image optimization, which raw `<figure>` HTML would not.
 - Quotes: `--color-tint` background with a 3px accent bar on the left; text stays in the body colour because quoted release notes and documentation are meant to be read.
 - Tables: header row on `--color-tint`, a rule under every row, no vertical lines. A table wider than the column scrolls horizontally.
 - Lists: 1.5em indent, 4px between items, muted markers.

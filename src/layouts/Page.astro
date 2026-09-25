@@ -1,6 +1,6 @@
 ---
 import Base from './Base.astro';
-import styles from './Page.module.css';
+import PageHeader from '../components/PageHeader.astro';
 import Prose from '../features/posts/components/Prose.astro';
 
 // Layout for Markdown pages in src/pages (set with `layout:` in their frontmatter).
@@ -16,10 +16,7 @@ const { title, description } = Astro.props.frontmatter;
 
 <Base title={title} description={description}>
   <article>
-    <header class={styles.header}>
-      <h1 class={styles.title}>{title}</h1>
-      <p class={styles.lede}>{description}</p>
-    </header>
+    <PageHeader title={title} description={description} />
     <Prose>
       <slot />
     </Prose>

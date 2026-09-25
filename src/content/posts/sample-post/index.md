@@ -41,6 +41,8 @@ export function greet(name: string): string {
 
 ![Two grey panels labelled Before and After](./before-after.png)
 
+*A caption: a paragraph of only italic text right after an image.*
+
 ## Tables, quotes and lists
 
 | Package | Purpose | Version |

@@ -18,7 +18,7 @@ src/
   content/posts/<slug>/        — index.md and its images
   pages/                       — routes: skeleton and composition only; per-page styles in _<page>.module.css
   layouts/                     — Base (document, header, footer), Post (post page), Page (Markdown pages such as pages/about.md)
-  components/                  — site-wide components (SiteHeader, SiteFooter)
+  components/                  — site-wide components (SiteHeader, SiteFooter, PageHeader)
   features/posts/
     data/posts.ts              — the only reader of the posts collection; called from frontmatter and endpoints
     components/                — post display (Timeline, PostMeta, TagList, Prose)
@@ -33,7 +33,7 @@ Extract every nameable section into a component with its own `*.module.css`; kee
 - **Site URL** is set only in `site` in `astro.config.mjs`. Never hard-code it elsewhere; derive it from `Astro.site` / `context.site` (this is why `robots.txt` is an endpoint, not a file in `public/`).
 - **Language**: English only, but keep URLs and layouts free of a language segment so that `/ja/` can be added later.
 - **Client JavaScript**: none. Dark mode follows `prefers-color-scheme` only; there is no toggle and no client state.
-- **Syntax highlighting**: Astro's built-in Shiki with `github-dark-default` in both colour schemes (code blocks are always dark). Languages in use are `dart`, `bash` and `ts`. Do not add highlighting packages.
+- **Syntax highlighting**: Astro's built-in Shiki with `github-dark-default` in both colour schemes (code blocks are always dark). Shiki bundles its languages, so any of them can be used in a post; the ones in use so far are `dart`, `bash`, `ts` and `yaml`. Do not add highlighting packages.
 - **Styling**: CSS Modules + CSS custom properties. No Tailwind and no Astro scoped `<style>`.
   - `src/styles/tokens.css`: design tokens.
   - `src/styles/global.css`: base fixes, body typography, links and focus. Loaded on every page, so nothing page-specific goes here.
@@ -76,4 +76,4 @@ CI (`.github/workflows/ci.yml`) installs dependencies through `pnpm/setup` and r
 
 ## Out of scope for now
 
-Migrating existing Medium posts, automatic cross-posting to dev.to, dynamic OGP images, full-text search, and the Japanese edition (`/ja/`). When cross-posting to dev.to, point its `canonical_url` at this site.
+Automatic cross-posting to dev.to, dynamic OGP images, full-text search, and the Japanese edition (`/ja/`). When cross-posting to dev.to, point its `canonical_url` at this site.
