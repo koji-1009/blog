@@ -6,6 +6,10 @@ tags: [flutter, testing]
 draft: true
 ---
 
+import Compare from '../../../features/posts/components/Compare.astro';
+import LinkCard from '../../../features/posts/components/LinkCard.astro';
+import beforeAfter from './before-after.png';
+
 This post is a draft. It is shown by `pnpm dev` and left out of `pnpm build`, and exists only to check how headings, code, images, tables and quotes look. A [link to the Dart site](https://dart.dev/) sits in this paragraph, next to some `inlineCode()`.
 
 A second paragraph checks the space between paragraphs. It is long enough to wrap onto several lines at the full measure, which is the width most text on this site is read at.
@@ -42,6 +46,25 @@ export function greet(name: string): string {
 ![Two grey panels labelled Before and After](./before-after.png)
 
 *A caption: a paragraph of only italic text right after an image.*
+
+The `Compare` component puts a before-and-after pair side by side. The same image stands in for both here.
+
+<Compare
+  before={beforeAfter}
+  beforeAlt="Two grey panels labelled Before and After, standing in for a before image"
+  after={beforeAfter}
+  afterAlt="Two grey panels labelled Before and After, standing in for an after image"
+/>
+
+## Link cards
+
+A `LinkCard` for a GitHub repository, a pub.dev package, and a page that cannot be fetched (it falls back to a plain link):
+
+<LinkCard url="https://github.com/koji-1009/shutter" />
+
+<LinkCard url="https://pub.dev/packages/shutter" />
+
+<LinkCard url="https://example.invalid/" />
 
 ## Tables, quotes and lists
 

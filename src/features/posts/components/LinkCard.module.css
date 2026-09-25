@@ -1,0 +1,55 @@
+/*
+ * A link to a repository or package page, shown as a card with the page's title,
+ * description and Open Graph image. The whole card is one link.
+ */
+.card {
+  display: grid;
+  grid-template-columns: 1fr min(12rem, 35%);
+  align-items: center;
+  gap: var(--space-m);
+  padding: var(--space-m);
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-m);
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+
+.card:hover { border-color: var(--color-accent); }
+
+/* Without an image, the text takes the whole row. */
+.card:not(:has(img)) { grid-template-columns: 1fr; }
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  min-width: 0;
+}
+
+.title,
+.description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.title {
+  font-weight: 600;
+  line-height: var(--leading-tight);
+}
+
+.card:hover .title { color: var(--color-accent); }
+
+.description,
+.host {
+  color: var(--color-foreground-muted);
+  font-size: var(--text-sm);
+}
+
+/* .prose img centres and borders every image; the card places its own. */
+.card .image {
+  margin: 0;
+  border: 1px solid var(--color-rule);
+  border-radius: var(--radius-s);
+}

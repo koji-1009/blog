@@ -2,37 +2,48 @@
 
 Source of [blog.koji-1009.com](https://blog.koji-1009.com), an English blog about Flutter: the framework, the packages around it, and the apps built on it. Built with [Astro](https://astro.build) as a fully static site and served by Cloudflare Workers static assets.
 
-## Adding a post
+## Writing a post
 
-1. Create a directory under `src/content/posts/`. Its name becomes the URL: `src/content/posts/my-post/` is published at `/posts/my-post/`.
-2. Write `index.md` in that directory with this frontmatter:
+### Files
 
-   ```yaml
-   ---
-   title: Before-and-After Images for Flutter UI Changes
-   description: One or two sentences shown in the post list, meta description and OGP.
-   pubDate: 2026-09-23
-   updatedDate: 2026-10-01 # optional
-   tags: [flutter, testing] # optional
-   draft: true # optional; drafts appear in `pnpm dev` only
-   heroImage: ./hero.png # optional; used as the OGP image
-   ---
-   ```
+Create a directory under `src/content/posts/`. Its name becomes the URL: `src/content/posts/my-post/` is published at `/posts/my-post/`. Write the post as `index.md` in that directory, or as `index.mdx` if it uses a component (see below). Images go in the same directory.
 
-3. Put images in the same directory and reference them with a relative path, for example `![Alt text](./diff.png)`. They are optimized at build time.
-4. To show a before-and-after pair side by side, name the file `index.mdx` instead and use the `Compare` component:
+### Frontmatter
 
-   ```mdx
-   import Compare from '../../../features/posts/components/Compare.astro';
-   import before from './before.png';
-   import after from './after.png';
+```yaml
+---
+title: Before-and-After Images for Flutter UI Changes
+description: One or two sentences shown in the post list, meta description and OGP.
+pubDate: 2026-09-23
+updatedDate: 2026-10-01 # optional
+tags: [flutter, testing] # optional
+draft: true # optional; drafts appear in `pnpm dev` only
+heroImage: ./hero.png # optional; used as the OGP image, otherwise public/og.png
+---
+```
 
-   <Compare before={before} beforeAlt="…" after={after} afterAlt="…" />
-   ```
+### Body
 
-   In `.mdx`, write links as `[text](url)`; `<https://…>` is a build error.
+- Headings start at `##`; the title is the page's only `#`.
+- Images: `![Alt text](./diff.png)`, with a relative path. They are optimized at build time. Describe what the image shows in the alt text.
+- Captions: a paragraph of only italic text right after an image, such as `*The diff: changed pixels in red.*`, is shown as its caption.
+- Code blocks are highlighted by Shiki. Name the language: `dart`, `bash`, `ts` and `yaml` are in use so far, and any language Shiki bundles works.
 
-Code blocks are highlighted by Shiki; use `dart`, `bash`, `ts` or `yaml` as the language.
+### Components (`.mdx` only)
+
+Import components after the frontmatter. The paths are relative to the post's directory:
+
+```mdx
+import Compare from '../../../features/posts/components/Compare.astro';
+import LinkCard from '../../../features/posts/components/LinkCard.astro';
+import before from './before.png';
+import after from './after.png';
+```
+
+- `<Compare before={before} beforeAlt="…" after={after} afterAlt="…" />` shows a before-and-after pair side by side, captioned "before" and "after", and stacks them on narrow screens.
+- `<LinkCard url="https://pub.dev/packages/shutter" />` shows a link to a package or repository as a card, with the page's title, description and Open Graph image read at build time. Put it on a line of its own. If the page cannot be fetched, the card falls back to a plain link and the build continues; if only the image cannot be fetched, the card has text only. Use it for pages with Open Graph tags (GitHub, pub.dev); for other pages, write an ordinary link.
+
+MDX reads `<` and `{` as JSX outside code: write links as `[text](url)` (`<https://…>` is a build error), and put `<` and `{` in prose inside backticks.
 
 ## Local development
 

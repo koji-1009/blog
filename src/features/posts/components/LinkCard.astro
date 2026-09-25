@@ -1,0 +1,25 @@
+---
+import styles from './LinkCard.module.css';
+import { getLinkPreview } from '../data/linkPreview';
+
+interface Props {
+  url: string;
+}
+
+const { url } = Astro.props;
+const preview = await getLinkPreview(url);
+const image = preview?.image;
+---
+
+{preview ? (
+  <a class={styles.card} href={preview.url}>
+    <span class={styles.body}>
+      <span class={styles.title}>{preview.title}</span>
+      {preview.description && <span class={styles.description}>{preview.description}</span>}
+      <span class={styles.host}>{preview.host}</span>
+    </span>
+    {image && <img class={styles.image} src={image.src} alt="" width={image.width} height={image.height} decoding="async" />}
+  </a>
+) : (
+  <p><a href={url}>{url}</a></p>
+)}

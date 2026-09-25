@@ -22,7 +22,8 @@ src/
   components/                  — site-wide components (SiteHeader, SiteFooter, PageHeader, Byline)
   features/posts/
     data/posts.ts              — the only reader of the posts collection; called from frontmatter and endpoints
-    components/                — post display (Timeline, PostMeta, TagList, Prose, Compare)
+    data/linkPreview.ts        — build-time fetch of a linked page's Open Graph tags and image, for LinkCard
+    components/                — post display (Timeline, PostMeta, TagList, Prose, Compare, LinkCard)
   shared/lib/                  — generic utilities (dates) and site constants
   styles/                      — tokens.css, global.css
 ```
@@ -51,7 +52,8 @@ Extract every nameable section into a component with its own `*.module.css`; kee
 ## Content
 
 - Posts: `src/content/posts/<slug>/index.md`; the directory name is the slug. Images live in the same directory.
-- A post that needs a component, such as `Compare` for before-and-after images, is `index.mdx` instead (`@astrojs/mdx`, which inherits the `markdown` config, so Shiki settings apply). Keep other posts as `.md`. MDX parses `<` and `{` as JSX, so autolinks like `<https://…>` must be written as `[…](…)`.
+- A post that needs a component (`Compare` for before-and-after images, `LinkCard` for package and repository links) is `index.mdx` instead (`@astrojs/mdx`, which inherits the `markdown` config, so Shiki settings apply). Keep other posts as `.md`. MDX parses `<` and `{` as JSX, so autolinks like `<https://…>` must be written as `[…](…)`. How to write a post is in README.md ("Writing a post"); keep it in step with the components.
+- `LinkCard` fetches the linked page (and its og:image) during the build. A failed fetch must never fail the build: the page falls back to a plain link, the image to a text-only card, each with a `[link-card]` warning in the build log. The image is resized with `sharp` and embedded as a data URI, so the published page makes no request to the linked site; Astro's remote image pipeline is not used because it fetches the image again during image generation and fails the build on an error such as GitHub's 429.
 - Schema: `src/content.config.ts`. `draft: true` posts appear in `pnpm dev` only. Always read posts through `getPosts()` in `src/features/posts/data/posts.ts` so drafts are filtered and posts are sorted newest first.
 - `src/content/posts/sample-post/` is a draft that exercises every styled element. Use it to check layout changes.
 - OGP: `heroImage` if set, otherwise `public/og.png`. No dynamic OGP generation.
