@@ -1,6 +1,6 @@
 # blog
 
-Source of [blog.koji-1009.com](https://blog.koji-1009.com), an English blog about Flutter and Dart tools. Built with [Astro](https://astro.build) as a fully static site and served by Cloudflare Workers static assets.
+Source of [blog.koji-1009.com](https://blog.koji-1009.com), an English blog about Flutter: the framework, the packages around it, and the apps built on it. Built with [Astro](https://astro.build) as a fully static site and served by Cloudflare Workers static assets.
 
 ## Adding a post
 
@@ -20,8 +20,19 @@ Source of [blog.koji-1009.com](https://blog.koji-1009.com), an English blog abou
    ```
 
 3. Put images in the same directory and reference them with a relative path, for example `![Alt text](./diff.png)`. They are optimized at build time.
+4. To show a before-and-after pair side by side, name the file `index.mdx` instead and use the `Compare` component:
 
-Code blocks are highlighted by Shiki; use `dart`, `bash` or `ts` as the language.
+   ```mdx
+   import Compare from '../../../features/posts/components/Compare.astro';
+   import before from './before.png';
+   import after from './after.png';
+
+   <Compare before={before} beforeAlt="…" after={after} afterAlt="…" />
+   ```
+
+   In `.mdx`, write links as `[text](url)`; `<https://…>` is a build error.
+
+Code blocks are highlighted by Shiki; use `dart`, `bash`, `ts` or `yaml` as the language.
 
 ## Local development
 

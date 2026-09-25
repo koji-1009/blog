@@ -1,0 +1,16 @@
+---
+import { Image } from 'astro:assets';
+import styles from './Byline.module.css';
+import avatar from '../assets/avatar.jpg';
+import { GITHUB_URL, SITE_TITLE } from '../shared/lib/site';
+---
+
+<div class={styles.byline}>
+  <Image class={styles.avatar} src={avatar} alt="" width={64} height={64} densities={[2]} loading="eager" />
+  <div>
+    <p class={styles.name}>{SITE_TITLE} (<a href={GITHUB_URL}>koji-1009</a>)</p>
+    <p class={styles.role}>
+      Flutter framework contributor and pub.dev package maintainer. <a href="/about/">More about me →</a>
+    </p>
+  </div>
+</div>

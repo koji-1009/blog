@@ -1,0 +1,22 @@
+/* The author's GitHub avatar beside a short introduction, on the home page. */
+.byline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-m);
+}
+
+/* The size comes from the width and height attributes; flex must not shrink it. */
+.avatar {
+  flex: none;
+  border-radius: 50%;
+}
+
+.name,
+.role { margin: 0; }
+
+.name { font-weight: 600; }
+
+/* Keep the handle whole; it would otherwise break at its hyphen on narrow screens. */
+.name a { white-space: nowrap; }
+
+.role { color: var(--color-foreground-muted); }

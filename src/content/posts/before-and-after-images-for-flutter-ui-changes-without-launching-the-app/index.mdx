@@ -5,6 +5,10 @@ pubDate: 2026-09-23
 tags: [flutter, cli, testing, coding-agents]
 ---
 
+import Compare from '../../../features/posts/components/Compare.astro';
+import before from './before.png';
+import after from './after.png';
+
 *This post describes shutter v0.2.0.*
 
 A pull request that changes how something looks is hard to review from the diff alone. `padding: 24` became `padding: 40`. What does that mean on screen? Which screens does it touch? Did anything overflow?
@@ -21,13 +25,12 @@ Flutter 3.47 made the [Widget Previewer](https://docs.flutter.dev/tools/widget-p
 
 Shutter adds the export. It takes the `@Preview` functions your project already has, renders them to PNG, and compares two sets of renders pixel by pixel. Here is a notification tile before and after a layout change that lets its body wrap instead of being cut off:
 
-![A notification tile for “Your order has shipped”. The body text is cut off after one line with an ellipsis, and the “5m” timestamp sits to the right of the title.](./before.png)
-
-*before*
-
-![The same notification tile after the change. The body text wraps onto two lines instead of being cut off, and the “5m” timestamp now sits below the title.](./after.png)
-
-*after*
+<Compare
+  before={before}
+  beforeAlt="A notification tile for “Your order has shipped”. The body text is cut off after one line with an ellipsis, and the “5m” timestamp sits to the right of the title."
+  after={after}
+  afterAlt="The same notification tile after the change. The body text wraps onto two lines instead of being cut off, and the “5m” timestamp now sits below the title."
+/>
 
 ![The diff image. Unchanged parts of the tile are faded, the body text and timestamp that moved are painted red, and a solid red band at the bottom marks the height the tile gained.](./diff.png)
 
@@ -175,6 +178,6 @@ Then ask your coding agent to run `shutter agent`.
 
 Feedback and issues are very welcome.
 
-<https://pub.dev/packages/shutter>
+[https://pub.dev/packages/shutter](https://pub.dev/packages/shutter)
 
-<https://github.com/koji-1009/shutter>
+[https://github.com/koji-1009/shutter](https://github.com/koji-1009/shutter)
