@@ -6,7 +6,7 @@ import { z } from 'astro/zod';
 // Each post lives in its own directory, so the entry id (and the URL slug) is the directory name.
 const postFiles = glob({
   base: './src/content/posts',
-  pattern: '*/index.md',
+  pattern: '*/index.{md,mdx}',
   generateId: ({ entry }) => entry.split('/')[0],
 });
 

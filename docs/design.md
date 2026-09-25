@@ -76,19 +76,20 @@ The node (an accent-coloured circle with a soft ring) is the site's mark. It app
 
 ## Header and footer
 
-- Header: the site mark and "Koji Wakamiya" (18px, bold) on the left; "Posts", "About", "RSS" and "日本語" (14px, muted, accent on hover) on the right. "日本語" links to `https://blog.dr1009.com/` with `lang="ja"` and `hreflang="ja"`. Not fixed.
+- Header: the site mark and "Koji Wakamiya" (18px, bold) on the left, linking to the home page, which is the post list; "About", "RSS" and "日本語" (14px, muted, accent on hover) on the right. There is no separate "Posts" link, because it would point to the same page as the site name. "日本語" links to `https://blog.dr1009.com/` with `lang="ja"` and `hreflang="ja"`. Not fixed.
 - Footer: a rule, then "© Koji Wakamiya. Code samples: MIT" on the left and GitHub, X, Zenn, RSS and the Japanese blog on the right, all 14px muted.
 
 ## Home page
 
-- The sentence about the author at `--text-lead`, semibold, as the page's opening statement. It is placeholder copy, to be replaced by the author.
-- Below it, a muted byline: "koji-1009 on GitHub · Flutter contributor · About me". Readers arriving from pub.dev or GitHub judge a post partly by who wrote it, so the GitHub handle and the Flutter work are one click away.
+- The sentence about the author at `--text-lead`, semibold, as the page's opening statement.
+- Below it, the byline (`src/components/Byline.astro`): the GitHub avatar (64px, round) beside two lines, "Koji Wakamiya (koji-1009)" in semibold with the handle linking to GitHub, and "Flutter framework contributor and pub.dev package maintainer. More about me →" in muted text. Readers arriving from pub.dev or GitHub judge a post partly by who wrote it, and the avatar is the same face they see there. Counts such as merged pull requests or packages go stale, so they live on the About page, not in the byline.
+- The avatar is a copy of the GitHub avatar in `src/assets/`, served through Astro's image pipeline, so the page makes no request to GitHub.
+- A small uppercase "Posts" heading (the page's `h1`), then the post list.
 
 ## About page
 
 - `src/pages/about.md`, rendered with `src/layouts/Page.astro`: the post page's header (title and description as a subtitle) and the same `.prose` body, so it can be edited as Markdown.
 - Content: contributions to Flutter grouped by area with links to the pull requests (including the unmerged iOS font fallback work), own open-source packages, and profiles elsewhere.
-- A small uppercase "Posts" heading (the page's `h1`), then the post list.
 
 ## Post list
 
@@ -112,6 +113,7 @@ The node (an accent-coloured circle with a soft ring) is the site's mark. It app
 - Code blocks: dark surface, 8px radius, 16px × 24px padding, 15px text with 1.6 leading. The language (from Shiki's `data-language`) is shown above the code as a small uppercase label, drawn with CSS only.
 - Images: centred, 1px `--color-rule` border (so white screenshots do not merge into the page) and 8px radius.
 - Image captions: a paragraph of only italic text (`*…*`) right after an image is its caption, 14px muted and centred, 8px below the image. Markdown has no caption syntax, and this keeps the image going through Astro's image optimization, which raw `<figure>` HTML would not.
+- Before-and-after pairs: in a `.mdx` post, the `Compare` component (`src/features/posts/components/Compare.astro`) shows the two images side by side, each captioned "before" and "after" like an image caption, so the eye can move between them instead of scrolling. The columns are a grid of `auto-fit` tracks at least 16rem wide, so they stack on narrow screens without a breakpoint. Both images are aligned to the top, so a change in height shows at the bottom edge. The images are imported and passed through `<Image />`, so they are optimized like Markdown images.
 - Quotes: `--color-tint` background with a 3px accent bar on the left; text stays in the body colour because quoted release notes and documentation are meant to be read.
 - Tables: header row on `--color-tint`, a rule under every row, no vertical lines. A table wider than the column scrolls horizontally.
 - Lists: 1.5em indent, 4px between items, muted markers.

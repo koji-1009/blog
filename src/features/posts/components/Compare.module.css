@@ -1,0 +1,21 @@
+/*
+ * Before and after images side by side, so that the eye can move between them.
+ * The columns wrap to a single stack when the column is too narrow for two,
+ * without a breakpoint. Both images are aligned to the top so that a change
+ * in height shows at the bottom edge.
+ */
+.compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  align-items: start;
+  gap: var(--space-l) var(--space-m);
+}
+
+.side { margin: 0; }
+
+.caption {
+  margin-block-start: var(--space-s);
+  color: var(--color-foreground-muted);
+  font-size: var(--text-sm);
+  text-align: center;
+}

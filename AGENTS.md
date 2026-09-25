@@ -10,18 +10,19 @@ Instructions for coding agents working in this repository. Human-facing setup is
 
 ## Architecture
 
-Follow [Crumple Zone Architecture](https://github.com/koji-1009/crumple-zone-architecture): the `crz` skill (`skill/crz.md`) when writing Astro code and the `sieve` skill (`skill/sieve.md`) when styling. This site is fully static, so the parts of CRZ that assume `output: 'server'` (middleware, Actions, sessions, `500.astro`, server islands) do not apply.
+Follow [Crumple Zone Architecture](https://github.com/koji-1009/crumple-zone-architecture): the `crz` skill when writing Astro code and the `sieve` skill when styling. Both are Claude Code plugins from that repository's marketplace, enabled for this project in `.claude/settings.json` and invoked as `/crz:crz` and `/sieve:sieve`; update them with `claude plugin update crz@crumple-zone-architecture` (and `sieve@…`). Other agents can read the same guidance in that repository's `skill/crz.md` and `skill/sieve.md`. This site is fully static, so the parts of CRZ that assume `output: 'server'` (middleware, Actions, sessions, `500.astro`, server islands) do not apply.
 
 ```
 src/
   content.config.ts            — posts collection schema
-  content/posts/<slug>/        — index.md and its images
+  content/posts/<slug>/        — index.md (or index.mdx) and its images
+  assets/                      — site-wide images (the author's avatar)
   pages/                       — routes: skeleton and composition only; per-page styles in _<page>.module.css
   layouts/                     — Base (document, header, footer), Post (post page), Page (Markdown pages such as pages/about.md)
-  components/                  — site-wide components (SiteHeader, SiteFooter, PageHeader)
+  components/                  — site-wide components (SiteHeader, SiteFooter, PageHeader, Byline)
   features/posts/
     data/posts.ts              — the only reader of the posts collection; called from frontmatter and endpoints
-    components/                — post display (Timeline, PostMeta, TagList, Prose)
+    components/                — post display (Timeline, PostMeta, TagList, Prose, Compare)
   shared/lib/                  — generic utilities (dates) and site constants
   styles/                      — tokens.css, global.css
 ```
@@ -50,6 +51,7 @@ Extract every nameable section into a component with its own `*.module.css`; kee
 ## Content
 
 - Posts: `src/content/posts/<slug>/index.md`; the directory name is the slug. Images live in the same directory.
+- A post that needs a component, such as `Compare` for before-and-after images, is `index.mdx` instead (`@astrojs/mdx`, which inherits the `markdown` config, so Shiki settings apply). Keep other posts as `.md`. MDX parses `<` and `{` as JSX, so autolinks like `<https://…>` must be written as `[…](…)`.
 - Schema: `src/content.config.ts`. `draft: true` posts appear in `pnpm dev` only. Always read posts through `getPosts()` in `src/features/posts/data/posts.ts` so drafts are filtered and posts are sorted newest first.
 - `src/content/posts/sample-post/` is a draft that exercises every styled element. Use it to check layout changes.
 - OGP: `heroImage` if set, otherwise `public/og.png`. No dynamic OGP generation.

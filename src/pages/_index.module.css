@@ -11,10 +11,7 @@
   text-wrap: balance;
 }
 
-.byline {
-  margin: var(--space-m) 0 0;
-  color: var(--color-foreground-muted);
-}
+.lead + * { margin-block-start: var(--space-l); }
 
 .heading {
   margin: 0 0 var(--space-l);

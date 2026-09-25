@@ -9,8 +9,8 @@
 
 .prose > * + * { margin-block-start: 1.25em; }
 
-.prose > :is(pre, table, p:has(> img)),
-.prose > :is(pre, table, p:has(> img)) + * { margin-block-start: var(--space-l); }
+.prose > :is(pre, table, p:has(> img), :has(> figure)),
+.prose > :is(pre, table, p:has(> img), :has(> figure)) + * { margin-block-start: var(--space-l); }
 
 .prose > * + :is(h2, h3) { margin-block-start: var(--space-2xl); }
 .prose > * + h3 { margin-block-start: var(--space-xl); }
