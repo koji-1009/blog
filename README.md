@@ -18,9 +18,10 @@ pubDate: 2026-09-23
 updatedDate: 2026-10-01 # optional
 tags: [flutter, testing] # optional
 draft: true # optional; drafts appear in `pnpm dev` only
-heroImage: ./hero.png # optional; used as the OGP image, otherwise public/og.png
 ---
 ```
+
+The Open Graph image (the preview shown when the post is shared) is generated from the title and date at build time; there is nothing to add for it.
 
 ### Body
 

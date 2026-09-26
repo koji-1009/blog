@@ -5,17 +5,17 @@ import PageHeader from '../components/PageHeader.astro';
 import PostMeta from '../features/posts/components/PostMeta.astro';
 import TagList from '../features/posts/components/TagList.astro';
 import Prose from '../features/posts/components/Prose.astro';
-import type { Post } from '../features/posts/data/posts';
+import { ogImagePath, type Post } from '../features/posts/data/posts';
 
 interface Props {
   post: Post;
 }
 
 const { post } = Astro.props;
-const { title, description, pubDate, updatedDate, tags, heroImage } = post.data;
+const { title, description, pubDate, updatedDate, tags } = post.data;
 ---
 
-<Base title={title} description={description} image={heroImage} article={{ pubDate, updatedDate, tags }}>
+<Base title={title} description={description} image={ogImagePath(post)} article={{ pubDate, updatedDate, tags }}>
   <article>
     <PageHeader title={title} description={description}>
       <PostMeta slot="meta" pubDate={pubDate} updatedDate={updatedDate} />

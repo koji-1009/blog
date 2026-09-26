@@ -24,6 +24,8 @@ src/
     data/posts.ts              — the only reader of the posts collection; called from frontmatter and endpoints
     data/linkPreview.ts        — build-time fetch of a linked page's Open Graph tags and image, for LinkCard
     components/                — post display (Timeline, PostMeta, TagList, Prose, Compare, LinkCard)
+  features/og/
+    data/ogImage.ts            — renders Open Graph images (satori → sharp PNG); called from the og endpoints
   shared/lib/                  — generic utilities (dates) and site constants
   styles/                      — tokens.css, global.css
 ```
@@ -56,7 +58,7 @@ Extract every nameable section into a component with its own `*.module.css`; kee
 - `LinkCard` fetches the linked page (and its og:image) during the build. A failed fetch must never fail the build: the page falls back to a plain link, the image to a text-only card, each with a `[link-card]` warning in the build log. The image is resized with `sharp` and embedded as a data URI, so the published page makes no request to the linked site; Astro's remote image pipeline is not used because it fetches the image again during image generation and fails the build on an error such as GitHub's 429.
 - Schema: `src/content.config.ts`. `draft: true` posts appear in `pnpm dev` only. Always read posts through `getPosts()` in `src/features/posts/data/posts.ts` so drafts are filtered and posts are sorted newest first.
 - `src/content/posts/sample-post/` is a draft that exercises every styled element. Use it to check layout changes.
-- OGP: `heroImage` if set, otherwise `public/og.png`. No dynamic OGP generation.
+- OGP: images are generated at build time, not drawn by hand. Each post gets `/og/posts/<slug>.png` (date, title and byline) from `src/pages/og/posts/[slug].png.ts`; every other page uses `/og.png` (the site description and byline) from `src/pages/og.png.ts`. Both render through `src/features/og/data/ogImage.ts` with satori. The font (Inter) is fetched during the build from the Google Fonts CSS API (`src/features/og/data/googleFont.ts`), subset with `text=` to the characters each image draws; without a browser User-Agent the API serves TrueType, which satori reads (it cannot read WOFF2). The system fonts are no option: the Workers Builds image (Ubuntu 24.04) installs no font package of its own, and its only fonts come in through `libvips-dev` → `libfontconfig1` → `fontconfig-config`, whose first font alternative is `fonts-dejavu-core`, which looks nothing like the site's system UI font. A `/ja/` edition needs only a Japanese family there. Unlike `LinkCard`, a failed font fetch fails the build: an image cannot be drawn without a font, and a failed Workers Build leaves the deployed site as it was.
 
 ## Commands
 
@@ -80,4 +82,4 @@ CI (`.github/workflows/ci.yml`) installs dependencies through `pnpm/setup` and r
 
 ## Out of scope for now
 
-Automatic cross-posting to dev.to, dynamic OGP images, full-text search, and the Japanese edition (`/ja/`). When cross-posting to dev.to, point its `canonical_url` at this site.
+Automatic cross-posting to dev.to, full-text search, and the Japanese edition (`/ja/`). When cross-posting to dev.to, point its `canonical_url` at this site.

@@ -12,7 +12,7 @@ The visual specification of this site and the reasons behind it. Tokens live in 
 
 Posts are joined by a vertical rail with a node per post, like `git log --graph`. The list really is chronological, and the shape is one readers see every day. Years sit on the rail as labels, like git tags.
 
-The node (an accent-coloured circle with a soft ring) is the site's mark. It appears before the site name, on the rail, in the favicon and in the default OGP image, so every surface is recognizably the same site.
+The node (an accent-coloured circle with a soft ring) is the site's mark. It appears before the site name, on the rail, in the favicon and in the OGP images, so every surface is recognizably the same site.
 
 ## Implementation
 
@@ -125,9 +125,13 @@ The node (an accent-coloured circle with a soft ring) is the site's mark. It app
 - Focus: 2px accent outline with 2px offset on `:focus-visible`, everywhere.
 - Hover changes colour or underline only. No transitions and no animation.
 
-## Default OGP image and favicon
+## OGP images and favicon
 
-- `public/og.png` (1200 × 630): the rail and one node on the left, "Koji Wakamiya" in bold sans-serif and the site description beside it, in the light palette.
+- Readers arrive from links shared on X, Reddit, Slack and similar, where the preview image is the largest thing in the card. A single site-wide image makes every post's card look the same, so each post has its own image with its title, generated at build time.
+- Post image (`/og/posts/<slug>.png`, 1200 × 630): the rail with the node on the date line, as in the post list; the date (30px muted); the title (bold, 76, 64 or 56px by length so that it stays within three lines, 1.15 leading, −0.02em tracking); and at the bottom the byline, the avatar (72px, round) beside "Koji Wakamiya" (semibold) and the host (muted). The byline carries the same face readers know from GitHub and pub.dev, and the host tells them where the link goes.
+- Site image (`/og.png`, for the home, About and tag pages): the same frame with the home page's opening sentence (the site description, 46px semibold) in place of the date and title, and the same byline.
+- Light palette only: the image is shown on other sites, which pick their own background. The typeface is Inter, fetched from Google Fonts at build time as the closest match to the system UI font; the Workers Builds image has only DejaVu fonts.
+- `og:image:alt` is the post title, or the site description for the site image, because that is the text the image shows.
 - `public/favicon.svg`: the rail and a node, switching colours with `prefers-color-scheme`.
 
 ## Quality bar
