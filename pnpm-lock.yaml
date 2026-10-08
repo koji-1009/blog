@@ -204,8 +204,8 @@ importers:
         specifier: ^7.3.4
         version: 7.3.4(@emnapi/core@1.11.3)(@emnapi/runtime@1.11.3)(@types/node@24.13.6)(yaml@2.9.1)
       satori:
-        specifier: ^0.33.5
-        version: 0.33.5
+        specifier: ^0.35.0
+        version: 0.35.0
       sharp:
         specifier: ^0.35.4
         version: 0.35.4(@types/node@24.13.6)
@@ -1888,8 +1888,8 @@ packages:
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
 
-  satori@0.33.5:
-    resolution: {integrity: sha512-PNW6ktrQ8SM6kk7u4aOuTkkUewkzyTOrj+QeEzXSsnNMAdff4ire9CAqIz8+4C3rCiBtK8QTELv52AZEd1PbRw==}
+  satori@0.35.0:
+    resolution: {integrity: sha512-YyoP7axF2T93XOWXQXLH4t+cvLgZ+MeYV/xruXJfPa/czpcRqaG41/8Bz3mzgYj/7NxdrqJOx3YtzWy1MLtG5g==}
     engines: {node: '>=16'}
 
   satteri@0.10.5:
@@ -3854,7 +3854,7 @@ snapshots:
       '@rolldown/binding-win32-arm64-msvc': 1.2.9
       '@rolldown/binding-win32-x64-msvc': 1.2.9
 
-  satori@0.33.5:
+  satori@0.35.0:
     dependencies:
       '@shuding/opentype.js': 1.4.0-beta.0
       css-background-parser: 0.1.0
