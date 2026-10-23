@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "private": true,
-  "packageManager": "pnpm@12.6.0",
+  "packageManager": "pnpm@12.14.0",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
@@ -12,16 +12,16 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^8.1.0",
+    "@astrojs/mdx": "^8.1.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
-    "astro": "^7.4.0",
+    "astro": "^7.4.2",
     "satori": "^0.62.0",
     "sharp": "^0.35.5"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "typescript": "^6.0.3",
-    "wrangler": "^4.151.1"
+    "wrangler": "^4.151.3"
   }
 }
